@@ -1,0 +1,19 @@
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'project-reports' 
+apply plugin: 'code-quality'
+apply from : 'file:/home/tony/workspace/gradle-plugins/easyb.gradle'
+
+repositories {
+//    mavenRepo urls: "https://collaborate.bt.com/artefacts/content/groups/public" 
+    mavenCentral()
+}
+
+configurations {
+    groovy
+}
+
+dependencies {
+    groovy group: 'org.codehaus.groovy', name: 'groovy-all', version: '1.7.2'
+    compile("org.springframework:spring-context:3.0.2.RELEASE@jar")
+}
