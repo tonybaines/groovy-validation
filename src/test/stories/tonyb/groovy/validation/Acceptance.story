@@ -25,7 +25,7 @@ scenario "Using the validation framework in the simplest way possible",{
 }
 scenario "Using the validation framework with a simple rule",{
     given "a simple validation definition",{
-        rules = [rule({Outcome.trivial "Broken"})]
+        rules = [rule({Outcome.information "Broken"})]
         definition = validator.withRules(rules)
     }
     when "a context is evaluated", {
@@ -34,12 +34,12 @@ scenario "Using the validation framework with a simple rule",{
     }
     then "meaningful validation results should be produced", {
         result.size.shouldBe 1
-        result.shouldHave Outcome.trivial("Broken")
+        result.shouldHave Outcome.information("Broken")
     }
 }
 scenario "Using the validation framework with more than one rule",{
     given "a validation definition",{
-        definition = validator.andRule({Outcome.trivial "Broken"})
+        definition = validator.andRule({Outcome.information "Broken"})
                               .andRule({Outcome.serious "Really Broken"})
     }
     when "a context is evaluated", {
@@ -48,7 +48,7 @@ scenario "Using the validation framework with more than one rule",{
     }
     then "meaningful validation results should be produced", {
         result.size.shouldBe 2
-        result.shouldHave Outcome.trivial("Broken")
+        result.shouldHave Outcome.information("Broken")
         result.shouldHave Outcome.serious("Really Broken")
     }
 }

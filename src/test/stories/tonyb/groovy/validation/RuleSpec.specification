@@ -2,12 +2,12 @@ package tonyb.groovy.validation
 
 import static tonyb.groovy.validation.Rule.rule
 
-rule1 = rule { (it == 'a') ? Outcome.trivial("oops") : null }
+rule1 = rule { (it == 'a') ? Outcome.warning("oops") : Outcome.information("All OK") }
 brokenRule = rule { throw new RuntimeException("Mistakes happen") }
 
 it "is possible for a rule to be reused with different contexts",{
-    rule1.examine('a').shouldBe Outcome.trivial("oops")
-    rule1.examine('b').shouldBe null
+    rule1.examine('a').shouldBe Outcome.warning("oops")
+    rule1.examine('b').shouldBe Outcome.information("All OK")
 }
 it "an exception thrown in a rule will be converted to an appropriate outcome",{
     brokenRule.examine('a').shouldBe Outcome.processingError("Mistakes happen")
