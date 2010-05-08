@@ -2,6 +2,7 @@ package tonyb.groovy.validation
 
 import static tonyb.groovy.validation.Validator.validator
 import static tonyb.groovy.validation.Level.*
+import static tonyb.groovy.validation.Rule.rule
 
 description "A validation framework"
 narrative "this string is required for now", {
@@ -12,7 +13,7 @@ narrative "this string is required for now", {
 
 scenario "Using the validation framework in the simplest way possible",{
     given "a really simple validation definition",{
-        definition = validator.withRules()
+        definition = validator.withRules([])
     }
     when "a context is evaluated", {
         context = [:]
@@ -24,11 +25,7 @@ scenario "Using the validation framework in the simplest way possible",{
 }
 scenario "Using the validation framework with a simple rule",{
     given "a simple validation definition",{
-        definition = validator.withRule(new Rule(
-                                outcome: new Outcome(
-                                        level: Trivial,
-                                        message: "Knife + fork on the wrong sides of the plate"),
-                                test: {context -> false}))
+        definition = validator.andRule(rule({context -> Outcome.trivial "Broken"}))
     }
     when "a context is evaluated", {
         context = [:]
@@ -36,6 +33,6 @@ scenario "Using the validation framework with a simple rule",{
     }
     then "meaningful validation results should be produced", {
         result.size.shouldBe 1
-        result.shouldHave new Outcome(level: Trivial, message: "Knife + fork on the wrong sides of the plate")
+        result.shouldHave Outcome.trivial("Broken")
     }
 }

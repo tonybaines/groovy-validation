@@ -12,16 +12,12 @@ class Validator {
         this.rules = rules
         this
     }
-    def withRule(rule) {
+    def andRule(rule) {
         this.rules << rule
         this
     }
 
     def validate(context) {
-        def outcomes = []
-        rules.each {
-            outcomes << it.evaluate(context)
-        }
-        outcomes
+        rules.collect { it.examine(context) }
     }
 }
