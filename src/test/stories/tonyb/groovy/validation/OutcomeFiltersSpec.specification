@@ -3,15 +3,19 @@ package tonyb.groovy.validation
 import static Outcome.*
 
 outcomes = [Outcome.trivial("Trivial"),
-            Outcome.warning("Warning"),
             Outcome.serious("Serious"),
+            Outcome.warning("Warning"),
             Outcome.processingError("Broken")
             ]
 
-it "is possible to get a filtered list of trivial outcomes",{
-    trivialities(outcomes).size.shouldBe 1
-    trivialities(outcomes).shouldHave Outcome.trivial("Trivial")
+
+it "is possible to get a sorted list of outcomes",{
+    sort(outcomes)[0].shouldBe Outcome.trivial("Trivial")
+    sort(outcomes)[1].shouldBe Outcome.warning("Warning")
+    sort(outcomes)[2].shouldBe Outcome.serious("Serious")
+    sort(outcomes)[3].shouldBe Outcome.processingError("Broken")
 }
+
 it "is possible to get a filtered list of warning outcomes",{
     warnings(outcomes).size.shouldBe 1
     warnings(outcomes).shouldHave Outcome.warning("Warning")
