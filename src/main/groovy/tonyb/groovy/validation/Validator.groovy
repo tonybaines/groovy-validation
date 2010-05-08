@@ -1,5 +1,7 @@
 package tonyb.groovy.validation
 
+import static tonyb.groovy.validation.Rule.rule
+
 class Validator {
     private rules = []
     private Validator() {}
@@ -12,8 +14,12 @@ class Validator {
         this.rules = rules
         this
     }
-    def andRule(rule) {
-        this.rules << rule
+    def andRule(Rule newRule) {
+        this.rules << newRule
+        this
+    }
+    def andRule(Closure closure) {
+        this.rules << rule(closure)
         this
     }
 

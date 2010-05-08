@@ -1,5 +1,5 @@
 package tonyb.groovy.validation
 
 public enum Level {
-    Trivial, Warning, Serious
+    Trivial, Warning, Serious, ProcessingError
 }
