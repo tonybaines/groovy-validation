@@ -1,4 +1,4 @@
-package tonyb.groovy.validation;
+package tonyb.groovy.validation
 
 class Validator {
     private rules = []

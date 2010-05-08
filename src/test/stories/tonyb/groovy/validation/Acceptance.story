@@ -28,7 +28,7 @@ scenario "Using the validation framework with a simple rule",{
                                 outcome: new Outcome(
                                         level: Trivial,
                                         message: "Knife + fork on the wrong sides of the plate"),
-                                test: {false}))
+                                test: {context -> false}))
     }
     when "a context is evaluated", {
         context = [:]

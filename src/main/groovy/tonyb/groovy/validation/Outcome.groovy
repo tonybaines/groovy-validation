@@ -1,4 +1,4 @@
-package tonyb.groovy.validation;
+package tonyb.groovy.validation
 
 @Immutable final class Outcome {
     Level level
