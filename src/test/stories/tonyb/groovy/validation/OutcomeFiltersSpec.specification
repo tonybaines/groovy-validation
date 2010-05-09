@@ -7,7 +7,7 @@ outcomes = [Outcome.information("Information"),
             Outcome.warning("Warning"),
             Outcome.processingError("Broken")
             ]
-outcomes.metaClass.mixin(OutcomeHelper)
+outcomes.metaClass.mixin OutcomeHelper
 
 it "is possible to get a sorted list of outcomes",{
     outcomes.sorted[0].shouldBe Outcome.information("Information")
