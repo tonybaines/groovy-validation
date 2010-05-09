@@ -3,6 +3,9 @@ package tonyb.groovy.validation
 import static tonyb.groovy.validation.Rule.rule
 
 rule1 = rule { (it == 'a') ? Outcome.warning("oops") : Outcome.information("All OK") }
+rule2 = rule { a,b ->
+  (a == 'a') ? Outcome.warning("oops") : Outcome.information("All OK")
+}
 brokenRule = rule { throw new RuntimeException("Mistakes happen") }
 
 it "is possible for a rule to be reused with different contexts",{
@@ -11,4 +14,14 @@ it "is possible for a rule to be reused with different contexts",{
 }
 it "an exception thrown in a rule will be converted to an appropriate outcome",{
     brokenRule.examine('a').shouldBe Outcome.processingError("Mistakes happen")
+}
+
+it "is possible for a rule to use a context made up of more than one object",{
+    rule {a,b -> Outcome.warning('oops')} .examine(1,2).shouldBe Outcome.warning("oops")
+    rule {a,b,c -> Outcome.warning('oops')} .examine(1,2,3).shouldBe Outcome.warning("oops")
+    rule {a,b,c,d -> Outcome.warning('oops')} .examine(1,2,3,4).shouldBe Outcome.warning("oops")
+    rule {a,b,c,d,e -> Outcome.warning('oops')} .examine(1,2,3,4,5).shouldBe Outcome.warning("oops")
+}
+it "is necessary to use a differnt syntax for more than 5 context objects", {
+    rule {Object[] context -> Outcome.warning('oops')} .examine(1,2,3,4,5,6).shouldBe Outcome.warning("oops")
 }
