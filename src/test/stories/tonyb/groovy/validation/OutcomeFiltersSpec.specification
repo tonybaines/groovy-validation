@@ -8,44 +8,61 @@ outcomes = [Outcome.information("Information"),
             Outcome.processingError("Broken")
             ]
 
-
 it "is possible to get a sorted list of outcomes",{
-    sort(outcomes)[0].shouldBe Outcome.information("Information")
-    sort(outcomes)[1].shouldBe Outcome.warning("Warning")
-    sort(outcomes)[2].shouldBe Outcome.serious("Serious")
-    sort(outcomes)[3].shouldBe Outcome.processingError("Broken")
+    use(OutcomeHelper) {
+        outcomes.sort()[0].shouldBe Outcome.information("Information")
+        outcomes.sort()[1].shouldBe Outcome.warning("Warning")
+        outcomes.sort()[2].shouldBe Outcome.serious("Serious")
+        outcomes.sort()[3].shouldBe Outcome.processingError("Broken")
+    }
 }
 
 it "is possible to get a filtered list of informational outcomes",{
-    informational(outcomes).size.shouldBe 1
-    informational(outcomes).shouldHave Outcome.information("Information")
+    use(OutcomeHelper) {
+        outcomes.onlyInformation().size.shouldBe 1
+        outcomes.onlyInformation().shouldHave Outcome.information("Information")
+    }
 }
 it "is possible to get a filtered list of warning outcomes",{
-    warnings(outcomes).size.shouldBe 1
-    warnings(outcomes).shouldHave Outcome.warning("Warning")
+    use(OutcomeHelper) {
+        outcomes.onlyWarnings().size.shouldBe 1
+        outcomes.onlyWarnings().shouldHave Outcome.warning("Warning")
+    }
 }
 it "is possible to get a filtered list of serious outcomes",{
-    seriousThings(outcomes).size.shouldBe 1
-    seriousThings(outcomes).shouldHave Outcome.serious("Serious")
+    use(OutcomeHelper) {
+        outcomes.onlySerious().size.shouldBe 1
+        outcomes.onlySerious().shouldHave Outcome.serious("Serious")
+    }
 }
 it "is possible to get a filtered list of processing errors",{
-    processingErrors(outcomes).size.shouldBe 1
-    processingErrors(outcomes).shouldHave Outcome.processingError("Broken")
+    use(OutcomeHelper) {
+        outcomes.onlyProcessingErrors().size.shouldBe 1
+        outcomes.onlyProcessingErrors().shouldHave Outcome.processingError("Broken")
+    }
 }
 it "is possible to get a filtered list of everything except processing errors",{
-    ignoringProcessingErrors(outcomes).size.shouldBe 3
-    ignoringProcessingErrors(outcomes).shouldNotHave Outcome.processingError("Broken")
+    use(OutcomeHelper) {
+        outcomes.ignoringProcessingErrors().size.shouldBe 3
+        outcomes.ignoringProcessingErrors().shouldNotHave Outcome.processingError("Broken")
+    }
 }
 it "is possible to get a filtered list of everything less than serious",{
-    lessThanSerious(outcomes).size.shouldBe 2
-    lessThanSerious(outcomes).shouldNotHave Outcome.processingError("Broken")
-    lessThanSerious(outcomes).shouldNotHave Outcome.serious("Serious")
+    use(OutcomeHelper) {
+        outcomes.lessThanSerious().size.shouldBe 2
+        outcomes.lessThanSerious().shouldNotHave Outcome.processingError("Broken")
+        outcomes.lessThanSerious().shouldNotHave Outcome.serious("Serious")
+    }
 }
 it "is possible to get a filtered list of everything more than information",{
-    moreThanInformation(outcomes).size.shouldBe 3
-    moreThanInformation(outcomes).shouldNotHave Outcome.information("Information")
+    use(OutcomeHelper) {
+        outcomes.moreThanInformation().size.shouldBe 3
+        outcomes.moreThanInformation().shouldNotHave Outcome.information("Information")
+    }
 }
 it "is possible to compose filters",{
-    ignoringProcessingErrors(lessThanSerious(moreThanInformation(outcomes))).size.shouldBe 1
-    ignoringProcessingErrors(lessThanSerious(moreThanInformation(outcomes))).shouldHave Outcome.warning("Warning")
+    use(OutcomeHelper) {
+        outcomes.ignoringProcessingErrors().lessThanSerious().moreThanInformation().size.shouldBe 1
+        outcomes.ignoringProcessingErrors().lessThanSerious().moreThanInformation().shouldHave Outcome.warning("Warning")
+    }
 }
