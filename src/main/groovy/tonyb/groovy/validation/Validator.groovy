@@ -23,7 +23,9 @@ class Validator {
         this
     }
 
-    def validate(context) {
-        rules.collect { it.examine(context) }
+    def ArrayList<Outcome> validate(context) {
+        def result = rules.collect { it.examine(context) }
+        result.metaClass.mixin OutcomeHelper // useful extra methods
+        result
     }
 }
