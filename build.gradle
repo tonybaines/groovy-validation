@@ -15,5 +15,4 @@ configurations {
 
 dependencies {
     groovy group: 'org.codehaus.groovy', name: 'groovy-all', version: '1.7.2'
-    compile("org.springframework:spring-context:3.0.2.RELEASE@jar")
 }

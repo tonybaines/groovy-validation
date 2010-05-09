@@ -1,5 +1,6 @@
 package tonyb.groovy.validation;
 
+@Category(ArrayList)
 class OutcomeHelper {
     static ArrayList<Outcome> getSorted(ArrayList<Outcome> outcomes) {
         outcomes.sort { a,b -> a.level <=> b.level }
