@@ -1,34 +1,34 @@
 package tonyb.groovy.validation;
 
 class OutcomeHelper {
-    static ArrayList<Outcome> sort(ArrayList<Outcome> outcomes) {
+    static ArrayList<Outcome> getSorted(ArrayList<Outcome> outcomes) {
         outcomes.sort { a,b -> a.level <=> b.level }
     }
 
-    static ArrayList<Outcome> onlyInformation(ArrayList<Outcome> outcomes) {
+    static ArrayList<Outcome> getOnlyInformation(ArrayList<Outcome> outcomes) {
         outcomes.findAll {it.level == Level.Information}
     }
 
-    static ArrayList<Outcome>  onlyWarnings(ArrayList<Outcome> outcomes) {
+    static ArrayList<Outcome> getOnlyWarnings(ArrayList<Outcome> outcomes) {
         outcomes.findAll {it.level == Level.Warning}
     }
 
-    static ArrayList<Outcome>  onlySerious(ArrayList<Outcome> outcomes) {
+    static ArrayList<Outcome> getOnlySerious(ArrayList<Outcome> outcomes) {
         outcomes.findAll {it.level == Level.Serious}
     }
 
-    static ArrayList<Outcome>  onlyProcessingErrors(ArrayList<Outcome> outcomes) {
+    static ArrayList<Outcome> getOnlyProcessingErrors(ArrayList<Outcome> outcomes) {
         outcomes.findAll {it.level == Level.ProcessingError} }
 
-    static ArrayList<Outcome>  lessThanSerious(ArrayList<Outcome> outcomes) {
+    static ArrayList<Outcome> getLessThanSerious(ArrayList<Outcome> outcomes) {
         outcomes.findAll {it.level < Level.Serious}
     }
 
-    static ArrayList<Outcome>  moreThanInformation(ArrayList<Outcome> outcomes) {
+    static ArrayList<Outcome> getMoreThanInformation(ArrayList<Outcome> outcomes) {
         outcomes.findAll {it.level > Level.Information}
     }
 
-    static ArrayList<Outcome>  ignoringProcessingErrors(ArrayList<Outcome> outcomes) {
+    static ArrayList<Outcome> getIgnoringProcessingErrors(ArrayList<Outcome> outcomes) {
         outcomes.findAll {it.level != Level.ProcessingError}
     }
 }
